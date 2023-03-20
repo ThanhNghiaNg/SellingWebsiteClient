@@ -9,4 +9,5 @@ export const addStyleCurrency = (price) => {
 export const USER_TAB_NAME = {
   changePassword: "CHANGE_PASSWORD",
   userInformation: "USER_INFORMATION",
+  blockAccount: "BLOCK_ACCOUNT",
 };

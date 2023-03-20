@@ -4,7 +4,7 @@ import { Button, Form, Input } from "antd";
 import useHttp from "../../hooks/useHttp";
 import { serverUrl } from "../../utils/constant";
 import { Progress } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/authSlice";
 
 function UserInfo(props) {
@@ -12,10 +12,10 @@ function UserInfo(props) {
   const dispatch = useDispatch();
   const { error, isLoading, sendRequest } = useHttp();
   const [success, setSuccess] = useState(null);
-
+  const id = useSelector(state=>state.auth.token)
   const onFinish = (values) => {
     sendRequest(
-      { url: `${serverUrl}/user`, method: "PUT", body: JSON.stringify(values) },
+      { url: `${serverUrl}/user/${id}`, method: "PUT", body: JSON.stringify(values) },
       (data) => {
         setSuccess(data.message);
         dispatch(authActions.changeName(values.fullName));
@@ -24,8 +24,7 @@ function UserInfo(props) {
   };
 
   useEffect(() => {
-    sendRequest({ url: `${serverUrl}/user` }, (data) => {
-      console.log(data);
+    sendRequest({ url: `${serverUrl}/user/${id}` }, (data) => {
       formRef.current.setFieldsValue(data);
     });
   }, []);

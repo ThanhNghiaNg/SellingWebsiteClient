@@ -3,16 +3,18 @@ import { Button, Form, Input, Progress } from "antd";
 import React, { useRef, useState } from "react";
 import useHttp from "../../hooks/useHttp";
 import { serverUrl } from "../../utils/constant";
+import { useSelector } from "react-redux";
 
 function UserPassword(props) {
   const { error, isLoading, sendRequest } = useHttp();
   const [success, setSuccess] = useState(null);
   const formRef = useRef();
+  const id = useSelector((state) => state.auth.token);
   const onFinish = (values) => {
     setSuccess("");
     sendRequest(
       {
-        url: `${serverUrl}/user/password`,
+        url: `${serverUrl}/user/${id}/password/change`,
         method: "PATCH",
         body: JSON.stringify(values),
       },

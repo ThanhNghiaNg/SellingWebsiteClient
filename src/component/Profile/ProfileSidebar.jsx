@@ -1,8 +1,6 @@
 import classes from "./ProfileSidebar.module.css";
 import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
+  LockOutlined,
   RedoOutlined,
   ProfileOutlined,
 } from "@ant-design/icons";
@@ -27,6 +25,11 @@ function ProfileSidebar(props) {
       label: "Change Password",
       tab: USER_TAB_NAME.changePassword,
     },
+    {
+      icon: LockOutlined,
+      label: "Block your account",
+      tab: USER_TAB_NAME.blockAccount,
+    }
   ];
   const items = itemsProperties.map((item) => {
     return {
