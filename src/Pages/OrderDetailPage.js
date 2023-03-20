@@ -8,13 +8,14 @@ import { serverUrl } from "../utils/constant";
 function OrderDetailPage(props) {
   const id = useParams().id;
   const [order, setOrder] = useState(null);
-  const { sendRequest, isLoading } = useHttp();
+  const { sendRequest, isLoading, error } = useHttp();
   useEffect(() => {
     sendRequest({ url: `${serverUrl}/order/${id}` }, (data) => {
       console.log(data);
       setOrder(data);
     });
   }, [id]);
+  console.log(error)
   return (
     <Container>
       {order && <OrderDetail order={order} />}
