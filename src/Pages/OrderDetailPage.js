@@ -8,15 +8,21 @@ import { serverUrl } from "../utils/constant";
 function OrderDetailPage(props) {
   const id = useParams().id;
   const [order, setOrder] = useState(null);
-  const { sendRequest } = useHttp();
+  const { sendRequest, isLoading } = useHttp();
   useEffect(() => {
     sendRequest({ url: `${serverUrl}/order/${id}` }, (data) => {
+      console.log(data);
       setOrder(data);
     });
   }, [id]);
-  return <Container>
-    {order && <OrderDetail order={order}/>}
-  </Container>;
+  return (
+    <Container>
+      {order && <OrderDetail order={order} />}
+      {!isLoading && !order && (
+        <p className="text-center fs-3">Not found Order</p>
+      )}
+    </Container>
+  );
 }
 
 export default OrderDetailPage;
