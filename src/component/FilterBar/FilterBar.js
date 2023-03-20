@@ -50,10 +50,10 @@ const FilterBar = (props) => {
       <input
         type="text"
         placeholder="Enter search Here"
-        className="col-4 p-2"
+        className="col-4 p-2 form-control w-25"
         onChange={inputSearchHandler}
       ></input>
-      <select onChange={sortResultHandler}>
+      <select onChange={sortResultHandler} className='form-select w-25'>
         <option value="Default">Default</option>
         <option value="Ascending">Ascending</option>
         <option value="Descending">Descending</option>
