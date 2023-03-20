@@ -17,8 +17,8 @@ const FilterBar = (props) => {
     // filter result by user input
     const resultProducts = allProducts.filter((product) => {
       return (
-        product.name.includes(inputSearch) ||
-        product.category.includes(inputSearch)
+        product.name.toLowerCase().includes(inputSearch) ||
+        product.category.toLowerCase().includes(inputSearch)
       );
     });
 
@@ -33,13 +33,14 @@ const FilterBar = (props) => {
       return;
     }
 
+    console.log(products);
     // Sort display result by type
     const sortArray = [...products].sort((item1, item2) => {
       if (type === "Ascending") {
-        return item1._id.$oid > item2._id.$oid ? 1 : -1;
+        return item1.price > item2.price ? 1 : -1;
       }
       if (type === "Descending") {
-        return item1._id.$oid < item2._id.$oid ? 1 : -1;
+        return item1.price < item2.price ? 1 : -1;
       }
     });
 

@@ -6,15 +6,21 @@ import FilterBar from "../component/FilterBar/FilterBar";
 import { useEffect, useState } from "react";
 import useHttp from "../hooks/useHttp";
 import { serverUrl } from "../utils/constant";
+import { useDispatch, useSelector } from "react-redux";
+import { productsActions } from "../store/products";
 
 const ShopPage = (props) => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
+  const products = useSelector((state) => state.products.products);
+  const dispatch = useDispatch();
   const { sendRequest } = useHttp();
   useEffect(() => {
     window.scrollTo(0, 0);
     if (products.length === 0) {
       sendRequest({ url: `${serverUrl}/products` }, (data) => {
-        setProducts(data);
+        // setProducts(data);
+        dispatch(productsActions.changeProducts(data));
+        dispatch(productsActions.setAllProducts(data));
       });
     }
   }, []);
@@ -25,10 +31,10 @@ const ShopPage = (props) => {
         <div className="col-3">
           <Sidebar />
         </div>
-        <div className="col-9">
+        <div className="col">
           <FilterBar></FilterBar>
           <ProductList
-            numCols="5"
+            numCols="4"
             showTitle={false}
             itemToDetail={true}
             data={products}

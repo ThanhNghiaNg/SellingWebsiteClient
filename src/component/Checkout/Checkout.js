@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import useHttp from "../../hooks/useHttp";
 import { serverUrl } from "../../utils/constant";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Checkout = (props) => {
   let totalPriceCart = 0; // contain total price of cart
@@ -15,11 +16,12 @@ const Checkout = (props) => {
   const [allRecord, setAllRecord] = useState([]);
   const { error, sendRequest } = useHttp();
   const navigate = useNavigate();
+  const id = useSelector((state) => state.auth.token);
   useEffect(() => {
     sendRequest({ url: `${serverUrl}/cart` }, (data) => {
       setAllRecord(data.items);
     });
-    sendRequest({ url: `${serverUrl}/user` }, (data) => {
+    sendRequest({ url: `${serverUrl}/user/${id}` }, (data) => {
       setName(data.fullName);
       setEmail(data.email);
       setPhone(data.phone);

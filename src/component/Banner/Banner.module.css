@@ -1,5 +1,6 @@
 .banner {
   position: relative;
+  margin-top: 1rem;
 }
 .banner img {
   width: 100%;
@@ -28,4 +29,20 @@ h1 {
 .description button {
   font-style: italic;
   padding: 0.5em 2em;
+}
+
+@media screen and (max-width: 1200px) {
+  .description h4 {
+    font-size: large;
+  }
+  .description h1 {
+    font-size: xx-large;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .description h4,
+  h1 {
+    display: none;
+  }
 }

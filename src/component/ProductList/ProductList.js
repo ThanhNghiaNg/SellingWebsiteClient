@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import __classes from "../CategoryList/CategoryList.module.css";
 import classes from "./ProductList.module.css";
 import ProductItem from "./ProductItem";
@@ -10,12 +10,27 @@ export const URL = `${serverUrl}/products-home`;
 
 // ProductList Component - for render grid of Products
 const ProductList = React.memo((props) => {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // State for status if is loading
+  let numCols = props.numCols ? Number(props.numCols) : 4; // Determine the number of columns on grid to display products (default is 4)
+  if (isSmallScreen) {
+    numCols = 2;
+  }
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    setIsSmallScreen(mediaQuery.matches);
+
+    // Add a listener to update the state when the screen size changes
+    const updateIsSmallScreen = (event) => setIsSmallScreen(event.matches);
+    mediaQuery.addListener(updateIsSmallScreen);
+
+    // Remove the listener when the component unmounts
+    return () => mediaQuery.removeListener(updateIsSmallScreen);
+  }, []);
 
   let data = props.data;
 
   let contentProducts = []; // keep the content of display products to render
-  const numCols = props.numCols ? Number(props.numCols) : 4; // Determine the number of columns on grid to display products (default is 4)
 
   if (data.length > 0) {
     for (let i = 0; i < data.length / numCols; i++) {

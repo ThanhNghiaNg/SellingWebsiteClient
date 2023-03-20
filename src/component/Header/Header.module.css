@@ -4,6 +4,7 @@
   font-style: italic;
   padding-top: 2em;
   padding-bottom: 2em;
+  border-bottom: solid 2px rgba(125, 125, 125, 0.05);
 }
 .header a {
   text-decoration: none;
@@ -24,10 +25,53 @@ a.active {
   display: flex;
   gap: 0.4em;
 }
-.icon-header {
+.icon-header i {
   color: gray;
+  width: 1.5rem;
+  text-align: center;
 }
 
 .logout {
   cursor: pointer;
+}
+
+.button__toggle {
+  opacity: 0;
+}
+
+.header__responsive {
+}
+
+@media screen and (max-width: 768px) {
+  .header__responsive {
+    display: none;
+  }
+  .header__layout {
+    display: flex;
+    position: fixed;
+    z-index: 5;
+  }
+  .header {
+    flex-direction: column;
+    background-color: #fff;
+    padding: 0;
+    height: 100vh;
+    justify-content: start;
+    gap: 1em;
+    box-shadow: 0 0 3px #ccc;
+    padding: 1rem;
+  }
+  .button__toggle {
+    opacity: 1;
+    transition: opacity ease-in-out 0.2s;
+    height: fit-content;
+  }
+  .group {
+    flex-direction: column;
+  }
+  .nav-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
 }
