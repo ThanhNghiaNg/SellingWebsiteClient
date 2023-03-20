@@ -9,7 +9,6 @@ function History(props) {
   const [history, setHistory] = useState([]);
   useEffect(() => {
     sendRequest({ url: `${serverUrl}/history` }, (data) => {
-      console.log(data);
       setHistory(data);
     });
   }, []);

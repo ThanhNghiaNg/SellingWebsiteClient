@@ -23,7 +23,6 @@ const authSlice = createSlice({
       state.name = action.payload;
     },
     logout: (state, action) => {
-      console.log("postLogout");
       localStorage.removeItem("TOKEN");
       localStorage.removeItem("IS_LOGGED_IN");
       localStorage.removeItem("USER_NAME");

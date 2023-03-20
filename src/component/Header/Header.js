@@ -17,7 +17,6 @@ const Header = (props) => {
 
   const logoutHandler = () => {
     sendRequest({ url: `${serverUrl}/logout`, method: "POST" }, (data) => {
-      console.log(data);
       dispatch(authActions.logout());
       navigate("/login", { replace: true });
     });

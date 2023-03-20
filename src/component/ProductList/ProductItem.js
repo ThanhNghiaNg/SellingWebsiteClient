@@ -19,12 +19,10 @@ const ProductItem = (props) => {
     // If toDetail props is true, go to detail page of product instead of show popup
     if (props.toDetail) {
       const id = props.product._id;
-      console.log(id);
       navigate(`/detail/${id}`);
     } else {
       // show pop up
       dispatch(popupActions.showPopup());
-      console.log(props.product._id);
       // set current product ID to show popup related
       dispatch(popupActions.pickID(props.product._id));
     }

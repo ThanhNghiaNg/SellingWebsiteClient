@@ -5,7 +5,6 @@ import OrderItem from "./OrderItem";
 
 function OrderDetail(props) {
   const order = props.order;
-  console.log(order);
   const contentOrderItems = order.items.map((item, idx) => {
     return <OrderItem item={item} key={idx} />;
   });

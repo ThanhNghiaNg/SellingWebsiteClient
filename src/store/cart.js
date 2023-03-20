@@ -38,7 +38,6 @@ const deleteCartHandler = (state, actions) => {
       rec.user === record.user &&
       rec.product._id.$oid === record.product._id.$oid
   );
-  console.log(idxRecord)
   state.listCart.splice(idxRecord, 1);
   localStorage.setItem(LIST_CART, JSON.stringify(state.listCart));
 };

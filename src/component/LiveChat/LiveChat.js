@@ -61,7 +61,6 @@ const LiveChat = (props) => {
         },
         (data) => {
           dispatch(authActions.createRoom(data.session._id));
-          console.log(data.session.streamData);
           setHistory(data.session.streamData);
         }
       );

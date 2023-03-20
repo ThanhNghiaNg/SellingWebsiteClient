@@ -58,7 +58,6 @@ const CartItem = (props) => {
         method: "DELETE",
       },
       (data) => {
-        console.log(data);
         props.onLoad();
       }
     );

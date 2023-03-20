@@ -59,7 +59,6 @@ const Checkout = (props) => {
         }),
       },
       (data) => {
-        console.log(data);
         navigate("/history");
       }
     );

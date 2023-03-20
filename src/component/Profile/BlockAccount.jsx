@@ -20,7 +20,6 @@ function BlockAccount(props) {
         method: "PATCH",
       },
       (data) => {
-        console.log(data);
         setSuccess(true);
         setTimeout(() => {
           dispatch(authActions.logout());

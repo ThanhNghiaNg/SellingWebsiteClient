@@ -12,7 +12,6 @@ function Profile(props) {
   const changeTabSideBarHandler = (tab) => {
     setTab(tab);
   };
-  console.log(tab);
   return (
     <Layout>
       <ProfileSidebar onChangeTab={changeTabSideBarHandler} />

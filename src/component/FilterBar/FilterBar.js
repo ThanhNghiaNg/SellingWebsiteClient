@@ -32,8 +32,6 @@ const FilterBar = (props) => {
     if (type === "Default") {
       return;
     }
-
-    console.log(products);
     // Sort display result by type
     const sortArray = [...products].sort((item1, item2) => {
       if (type === "Ascending") {
