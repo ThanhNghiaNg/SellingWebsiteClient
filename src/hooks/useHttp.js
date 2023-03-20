@@ -19,7 +19,7 @@ function useHttp() {
         body: config.body ? config.body : null,
         credentials: "include",
       });
-
+      console.log(respone)
       const data = await respone.json();
 
       if (respone.status >= 200 && respone.status < 300) {

@@ -9,13 +9,15 @@ function OrderDetailPage(props) {
   const id = useParams().id;
   const [order, setOrder] = useState(null);
   const { sendRequest, isLoading, error } = useHttp();
+  console.log(id);
+  console.log(error);
   useEffect(() => {
     sendRequest({ url: `${serverUrl}/order/${id}` }, (data) => {
       console.log(data);
       setOrder(data);
     });
   }, [id]);
-  console.log(error)
+
   return (
     <Container>
       {order && <OrderDetail order={order} />}
