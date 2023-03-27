@@ -36,8 +36,6 @@ const HomePage = (props) => {
   return (
     <Container>
       {isLoadingImages && <Skeleton active className="my-5" />}
-      {isLoadingProducts && <Skeleton active className="my-5" />}
-
       {!isLoadingImages && (
         <>
           {imagePaths && <Banner bannerSrc={imagePaths.bannerPath} />}
@@ -46,6 +44,8 @@ const HomePage = (props) => {
           )}
         </>
       )}
+      
+      {isLoadingProducts && <Skeleton active className="my-5" />}
       {!isLoadingProducts && (
         <ProductList showTitle={true} showAll={true} data={products} />
       )}
