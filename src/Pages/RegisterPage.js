@@ -4,9 +4,7 @@ const RegisterPage = (props) => {
   return (
     <div>
       <div className={classesBanner.banner}>
-        <img src={"./images/banner1.jpg"}></img>
-        <img src={"./images/banner1.jpg"}></img>
-        <UserForm isLogining={false}/>
+        <UserForm isLogining={false} />
       </div>
     </div>
   );
