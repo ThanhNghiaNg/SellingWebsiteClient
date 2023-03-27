@@ -59,6 +59,9 @@ function App() {
           {isLoading && (
             <Container className="text-center">
               <Spin size="large" />
+              <p className="text-primary">
+                Please wait... It can take a minute.
+              </p>
             </Container>
           )}
           {!isLoading && (
