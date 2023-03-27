@@ -43,7 +43,7 @@ function BlockAccount(props) {
         </>
       )}
       {success && (
-        <div className="text-sucess">
+        <div className="text-success">
           <p>Your account is now blocked.</p>{" "}
           <p>You will be logged out in 3 seconds!</p>
         </div>

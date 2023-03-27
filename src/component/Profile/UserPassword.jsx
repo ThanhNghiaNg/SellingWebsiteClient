@@ -1,5 +1,5 @@
 import classes from "./UserPassword.module.css";
-import { Button, Form, Input, Progress } from "antd";
+import { Button, Form, Input, Progress, Spin } from "antd";
 import React, { useRef, useState } from "react";
 import useHttp from "../../hooks/useHttp";
 import { serverUrl } from "../../utils/constant";
@@ -96,7 +96,11 @@ function UserPassword(props) {
           span: 16,
         }}
       >
-        {isLoading && <Progress percent={75} size="small" status="active" />}
+        {isLoading && (
+          <div className="text-center">
+            <Spin />
+          </div>
+        )}
         {!isLoading && success && <p className="text-success">{success}</p>}
         {!isLoading && error && <p className="text-danger">{error}</p>}
         <Button type="primary" htmlType="submit">

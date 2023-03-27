@@ -15,11 +15,13 @@ import { authActions } from "./store/authSlice";
 import useHttp from "./hooks/useHttp";
 import { serverUrl } from "./utils/constant";
 import ProfilePage from "./Pages/ProfilePage";
+import { Spin } from "antd";
+import Container from "./component/UI/Container";
 function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   // Logout when user close browser
-  const { sendRequest } = useHttp();
+  const { sendRequest, isLoading } = useHttp();
   useEffect(() => {
     sendRequest({ url: `${serverUrl}/authenticated` }, (data) => {
       if (data.isLoggedIn !== true) {
@@ -34,24 +36,37 @@ function App() {
       <Route path="/history" element={<HistoryPage />} />
       <Route path="/order/:id" element={<OrderDetailPage />} />
       <Route path="/profile" element={<ProfilePage />} />
+      <Route
+        path="*"
+        element={<p className="text-center fs-3">404 - PageNot found</p>}
+      />
+    </>
+  );
+  const publicRoutes = (
+    <>
+      <Route path="/shop" element={<ShopPage />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/detail/:id" element={<DetailPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="*" element={<LoginPage />} />
     </>
   );
   return (
     <React.Fragment>
       <BrowserRouter>
         <Layout>
-          <Routes>
-            {isLoggedIn && userRoutes}
-            <Route path="/shop" element={<ShopPage />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="/detail/:id" element={<DetailPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route
-              path="*"
-              element={<p className="text-center fs-3">404 - PageNot found</p>}
-            />
-          </Routes>
+          {isLoading && (
+            <Container className="text-center">
+              <Spin size="large" />
+            </Container>
+          )}
+          {!isLoading && (
+            <Routes>
+              {isLoggedIn && userRoutes}
+              {publicRoutes}
+            </Routes>
+          )}
         </Layout>
       </BrowserRouter>
     </React.Fragment>

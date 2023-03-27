@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useHttp from "../../hooks/useHttp";
 import { serverUrl } from "../../utils/constant";
 import { authActions } from "../../store/authSlice";
+import { Space, Spin } from "antd";
 
 const UserForm = (props) => {
   const dispatch = useDispatch();
@@ -100,11 +101,15 @@ const UserForm = (props) => {
         )}
       </div>
       {/* Show message when loading request */}
-      {isLoading && <p className="text-primary text-center">Loading...</p>}
+      {isLoading && (
+        <div className="text-center m-3">
+          <Spin size="small" />
+        </div>
+      )}
       {/* show message error if it has */}
-      {error && <p className="text-danger">{error}</p>}
+      {error && <p className="text-danger text-center">{error}</p>}
       {/* show message successs if register or login successfully */}
-      {success && <p className="text-success">{success}</p>}
+      {success && <p className="text-success text-center">{success}</p>}
       <Button onClick={submitHandler}>SIGN {!isLogining ? "UP" : "IN"}</Button>
       <div className={classes.switch}>
         <span>{!isLogining ? "Login" : "Create an account"}</span>?{" "}

@@ -1,6 +1,6 @@
 import classes from "./UserInfo.module.css";
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Spin } from "antd";
 import useHttp from "../../hooks/useHttp";
 import { serverUrl } from "../../utils/constant";
 import { Progress } from "antd";
@@ -12,10 +12,14 @@ function UserInfo(props) {
   const dispatch = useDispatch();
   const { error, isLoading, sendRequest } = useHttp();
   const [success, setSuccess] = useState(null);
-  const id = useSelector(state=>state.auth.token)
+  const id = useSelector((state) => state.auth.token);
   const onFinish = (values) => {
     sendRequest(
-      { url: `${serverUrl}/user/${id}`, method: "PUT", body: JSON.stringify(values) },
+      {
+        url: `${serverUrl}/user/${id}`,
+        method: "PUT",
+        body: JSON.stringify(values),
+      },
       (data) => {
         setSuccess(data.message);
         dispatch(authActions.changeName(values.fullName));
@@ -106,7 +110,11 @@ function UserInfo(props) {
           span: 16,
         }}
       >
-        {isLoading && <Progress percent={75} size="small" status="active" />}
+        {isLoading && (
+          <div className="text-center">
+            <Spin />
+          </div>
+        )}
         {!isLoading && success && <p className="text-success">{success}</p>}
         <Button type="primary" htmlType="submit">
           Update

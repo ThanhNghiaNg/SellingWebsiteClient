@@ -6,26 +6,49 @@ import MoreInfo from "../component/MoreInfo/MoreInfo";
 import { useEffect, useState } from "react";
 import useHttp from "../hooks/useHttp";
 import { serverUrl } from "../utils/constant";
+import { Skeleton } from "antd";
 
 const HomePage = (props) => {
-  const { sendRequest } = useHttp();
+  const {
+    isLoading: isLoadingImages,
+    sendRequest: getImages,
+    cancelRequest: cancelGetImages,
+  } = useHttp();
+  const {
+    isLoading: isLoadingProducts,
+    sendRequest: getProducts,
+    cancelRequest: cancelGetPeoducts,
+  } = useHttp();
   const [imagePaths, setImagePaths] = useState(null);
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    sendRequest({ url: `${serverUrl}/images-home` }, (data) => {
+    getImages({ url: `${serverUrl}/images-home` }, (data) => {
       setImagePaths(data);
     });
-    sendRequest({ url: `${serverUrl}/products-home` }, (data) => {
+    getProducts({ url: `${serverUrl}/products-home` }, (data) => {
       setProducts(data);
     });
+    return () => {
+      cancelGetImages();
+      cancelGetPeoducts();
+    };
   }, []);
   return (
     <Container>
-      {imagePaths && <Banner bannerSrc={imagePaths.bannerPath} />}
-      {imagePaths && (
-        <CategoryList categoriesSrc={imagePaths.categoriesPaths} />
+      {isLoadingImages && <Skeleton active className="my-5" />}
+      {isLoadingProducts && <Skeleton active className="my-5" />}
+
+      {!isLoadingImages && (
+        <>
+          {imagePaths && <Banner bannerSrc={imagePaths.bannerPath} />}
+          {imagePaths && (
+            <CategoryList categoriesSrc={imagePaths.categoriesPaths} />
+          )}
+        </>
       )}
-      <ProductList showTitle={true} showAll={true} data={products} />
+      {!isLoadingProducts && (
+        <ProductList showTitle={true} showAll={true} data={products} />
+      )}
       <MoreInfo />
     </Container>
   );

@@ -2,11 +2,11 @@ import classes from "./History.module.css";
 import useHttp from "../../hooks/useHttp";
 import React, { useEffect, useState } from "react";
 import { serverUrl } from "../../utils/constant";
-import { Pagination } from "antd";
+import { Pagination, Skeleton } from "antd";
 import Order from "./Order";
 
 function History(props) {
-  const { isLoading, sendRequest } = useHttp();
+  const { isLoading, sendRequest, cancelRequest } = useHttp();
   const [history, setHistory] = useState([]);
   const [numResult, setNumResult] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,6 +17,7 @@ function History(props) {
   };
 
   useEffect(() => {
+    
     sendRequest(
       { url: `${serverUrl}/history?page=${currentPage}&&pageSize=${pageSize}` },
       (data) => {
@@ -24,7 +25,11 @@ function History(props) {
         setNumResult(data.numResult);
       }
     );
+    return () => {
+      cancelRequest();
+    };
   }, [currentPage]);
+
   let tableBodyContent;
   if (history.length > 0) {
     tableBodyContent = history.map((order, idx) => {
@@ -52,15 +57,18 @@ function History(props) {
             <th>detail</th>
           </tr>
         </thead>
-        <tbody>{tableBodyContent}</tbody>
+        <tbody>{!isLoading && tableBodyContent}</tbody>
       </table>
-      <Pagination
-        defaultCurrent={1}
-        total={numResult}
-        pageSize={pageSize}
-        onChange={changePageHandler}
-        className="d-flex justify-content-end m-3"
-      />
+      {isLoading && <Skeleton className="mt-2" />}
+      {history.length > 0 && (
+        <Pagination
+          defaultCurrent={1}
+          total={numResult}
+          pageSize={pageSize}
+          onChange={changePageHandler}
+          className="d-flex justify-content-end m-3"
+        />
+      )}
     </>
   );
 }
