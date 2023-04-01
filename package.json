@@ -1,9 +1,8 @@
 {
   "name": "rjs-asm03",
   "version": "0.1.0",
-  "homepage": "https://thanhnghiang.github.io/SellingWebsite/",
+  "homepage": ".",
   "private": true,
-  
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/jest-dom": "^5.16.5",
